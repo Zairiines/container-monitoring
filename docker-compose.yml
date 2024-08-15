@@ -27,7 +27,8 @@ services:
   grafana:
     container_name: grafana
     image: grafana/grafana:latest
-    network_mode: "host"
+    ports: 
+      - "3001:3000"  # run Grafana on port 3001
     environment:
       - GF_PATHS_PROVISIONING=/etc/grafana/provisioning
       - DS_PROMETHEUS=prometheus
@@ -36,7 +37,6 @@ services:
       - "./datasources.yml:/etc/grafana/provisioning/datasources/datasources.yml"
       - "./dashboard.json:/var/lib/grafana/dashboards/dashboard.json"
       - "./default.yaml:/etc/grafana/provisioning/dashboards/default.yaml"
-    privileged: true
     depends_on:
       - prometheus
 
